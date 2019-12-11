@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .button {
+      display: inline-block;
+      padding: 0 14px;
+      height: 24px;
+      line-height: 24px;
+      background-color: #ddd;
+      text-align: center;
+      font-size: 12px;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<div class="button" id="btn">
+  点击加一
+</div>
+<div class="num" id="num">1</div>
+</body>
+<script>
+  var btn = document.getElementById('btn');
+  var num = document.getElementById('num');
+  var number = 1;
+  btn.addEventListener('click', throttle(() => {
+    number++;
+    num.innerText = number;
+  }, 1000));
+
+  function throttle(func, time) {
+    let bool = true;
+    return (...arg) => {
+      if (bool) {
+        bool = false;
+        func(...arg);
+        let timer = setTimeout(() => {
+          bool = true;
+          clearTimeout(timer);
+        }, time);
+      }
+    }
+  }
+</script>
+</html>
